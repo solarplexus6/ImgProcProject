@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExemplarInpaintingPlugin", "ExemplarInpaintingPlugin.csproj", "{4FCE061E-FAE0-4AFC-B27F-D3FA2083410A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinGimpSharp", "..\..\XamarinGimpSharp\XamarinGimpSharp\XamarinGimpSharp.csproj", "{B0837187-4FC4-40BE-8FC7-F79D151E52E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FCE061E-FAE0-4AFC-B27F-D3FA2083410A}.Debug|x86.ActiveCfg = Debug|x86
+		{4FCE061E-FAE0-4AFC-B27F-D3FA2083410A}.Debug|x86.Build.0 = Debug|x86
+		{4FCE061E-FAE0-4AFC-B27F-D3FA2083410A}.Release|x86.ActiveCfg = Release|x86
+		{4FCE061E-FAE0-4AFC-B27F-D3FA2083410A}.Release|x86.Build.0 = Release|x86
+		{B0837187-4FC4-40BE-8FC7-F79D151E52E1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B0837187-4FC4-40BE-8FC7-F79D151E52E1}.Debug|x86.Build.0 = Debug|Any CPU
+		{B0837187-4FC4-40BE-8FC7-F79D151E52E1}.Release|x86.ActiveCfg = Release|Any CPU
+		{B0837187-4FC4-40BE-8FC7-F79D151E52E1}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ExemplarInpaintingPlugin.csproj
+	EndGlobalSection
+EndGlobal
