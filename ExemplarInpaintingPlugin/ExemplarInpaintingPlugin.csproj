@@ -86,7 +86,6 @@
     <PostBuildEvent>xcopy /Q /Y "$(TargetPath)" "D:\sudo\GIMPPortable\App\gimp\lib\gimp\2.0\plug-ins\"
 xcopy /Q /Y "$(TargetDir)*.dll" "D:\sudo\GIMPPortable\App\gimp\lib\gimp\2.0\plug-ins\"
 cd $(TargetDir)
-ilmerge /target:winexe /out:ExemplarInpaintingPluginPacked.exe ExemplarInpaintingPlugin.exe atk-sharp.dll gdk-sharp.dll glib-sharp.dll gtk-sharp.dll Mono.Posix.dll Mono.Cairo.dll
- XamarinGimpSharp.dll</PostBuildEvent>
+ilmerge /target:winexe /out:ExemplarInpaintingPluginPacked.exe ExemplarInpaintingPlugin.exe atk-sharp.dll gdk-sharp.dll glib-sharp.dll gtk-sharp.dll Mono.Posix.dll Mono.Cairo.dll XamarinGimpSharp.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>

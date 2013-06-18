@@ -27,7 +27,7 @@ namespace ExemplarInpaintingPlugin
                                  "Rafal Lukaszewski",
                                  "(C) Rafal Lukaszewski",
                                  "2013",
-                                 _("Inpainting"),
+                                 _("Exemplar based inpainting"),
                                  "RGB*, GRAY*") { MenuPath = "<Image>/Filters/Object Removal" };
         }
 
