@@ -1,4 +1,10 @@
-﻿using System;
+﻿//
+//  GIMP plugin
+//  Region Filling and Object Removal by Exemplar-Based Image Inpainting
+//  Rafal Lukaszewski, 2013
+//
+
+using System;
 using ExemplarInpaintingPlugin.Helpers;
 using Gimp;
 

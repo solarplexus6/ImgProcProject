@@ -1,4 +1,10 @@
-﻿using ExemplarInpaintingPlugin.Helpers;
+﻿//
+//  GIMP plugin
+//  Region Filling and Object Removal by Exemplar-Based Image Inpainting
+//  Rafal Lukaszewski, 2013
+//
+
+using ExemplarInpaintingPlugin.Helpers;
 using Gimp;
 
 namespace ExemplarInpaintingPlugin.SelectionHandling

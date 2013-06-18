@@ -1,4 +1,10 @@
-﻿using ExemplarInpaintingPlugin.DataTerm.Convolution;
+﻿//
+//  GIMP plugin
+//  Region Filling and Object Removal by Exemplar-Based Image Inpainting
+//  Rafal Lukaszewski, 2013
+//
+
+using ExemplarInpaintingPlugin.DataTerm.Convolution;
 using ExemplarInpaintingPlugin.SelectionHandling;
 using Gimp;
 
