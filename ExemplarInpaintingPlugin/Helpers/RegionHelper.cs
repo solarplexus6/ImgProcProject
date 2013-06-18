@@ -1,13 +1,35 @@
-﻿using System;
+﻿//
+//  GIMP plugin
+//  Region Filling and Object Removal by Exemplar-Based Image Inpainting
+//  Rafal Lukaszewski, 2013
+//
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExemplarInpaintingPlugin.SelectionHandling;
 using Gimp;
 
 namespace ExemplarInpaintingPlugin.Helpers
 {
-    public class BorderHelper
+    public static class RegionHelper
     {
-        #region Public static methods
+        #region Public static methods        
+
+        public static Pixel[,] ToArrayWithoutSelection(this PixelRgn rgn, SelectionMask selectionMask)
+        {
+            var array = new Pixel[rgn.W,rgn.H];            
+            var iterator = new RegionIterator(rgn);
+            iterator.ForEach(rgnPixel =>
+                {
+                    if (!selectionMask[rgnPixel.X, rgnPixel.Y])
+                    {
+                        array[rgnPixel.X - rgn.X, rgnPixel.Y - rgn.Y] = rgnPixel;
+                    }
+                });
+
+            return array;
+        }
 
         public static T[,] FilledMatrix<T>(int width, int height, T value)
         {
@@ -42,10 +64,10 @@ namespace ExemplarInpaintingPlugin.Helpers
         }
 
         public static IEnumerable<IntCoordinate> Grid(Rectangle bounds)
-        {            
+        {
             //TODO: reconsider arguments meaning
-            return Grid(bounds.X1, bounds.X2, bounds.Y1 + 1, bounds.Y2 + 1);
-        }
+            return Grid(bounds.X1, bounds.X2, bounds.Y1, bounds.Y2);
+        }        
 
         private static readonly IntCoordinate[] _mooreNeighborhood = new[]
             {

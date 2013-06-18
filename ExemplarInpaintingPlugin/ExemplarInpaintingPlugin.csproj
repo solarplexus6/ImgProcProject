@@ -30,27 +30,50 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mono.Cairo, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\sudo\GtkSharp\2.12\lib\Mono.Cairo\Mono.Cairo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="gtk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="gdk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="glib-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="atk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts\VariablesConsts.cs" />
+    <Compile Include="DataTerm\Convolution\Convolver.cs" />
+    <Compile Include="DataTerm\Convolution\ImgGradient.cs" />
+    <Compile Include="DataTerm\Convolution\SeparableKernel.cs" />
+    <Compile Include="DataTerm\Convolution\ScharrKernel.cs" />
+    <Compile Include="DataTerm\NormalVectors.cs" />
     <Compile Include="Dialog.cs" />
-    <Compile Include="Helpers\BorderHelper.cs" />
+    <Compile Include="Helpers\RectangleHelper.cs" />
+    <Compile Include="Helpers\RegionHelper.cs" />
+    <Compile Include="Helpers\MathHelper.cs" />
+    <Compile Include="Helpers\CoordinateHelper.cs" />
+    <Compile Include="PixelDistance\IPixelDistanceCalculator.cs" />
+    <Compile Include="PixelDistance\RgbDistanceCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectRemovalPlugin.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="SelectionHandling\SelectionMask.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -60,6 +83,10 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetPath)" "D:\sudo\GIMPPortable\App\gimp\lib\gimp\2.0\plug-ins\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetPath)" "D:\sudo\GIMPPortable\App\gimp\lib\gimp\2.0\plug-ins\"
+xcopy /Q /Y "$(TargetDir)*.dll" "D:\sudo\GIMPPortable\App\gimp\lib\gimp\2.0\plug-ins\"
+cd $(TargetDir)
+ilmerge /target:winexe /out:ExemplarInpaintingPluginPacked.exe ExemplarInpaintingPlugin.exe atk-sharp.dll gdk-sharp.dll glib-sharp.dll gtk-sharp.dll Mono.Posix.dll Mono.Cairo.dll
+ XamarinGimpSharp.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>

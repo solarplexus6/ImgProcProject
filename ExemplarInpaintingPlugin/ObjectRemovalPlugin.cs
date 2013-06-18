@@ -1,3 +1,10 @@
+//
+//  GIMP plugin
+//  Region Filling and Object Removal by Exemplar-Based Image Inpainting
+//  Rafal Lukaszewski, 2013
+//
+
+using ExemplarInpaintingPlugin.Consts;
 using Gimp;
 
 namespace ExemplarInpaintingPlugin
@@ -8,7 +15,7 @@ namespace ExemplarInpaintingPlugin
 
         protected override GimpDialog CreateDialog()
         {
-            gimp_ui_init("HelloPlugin", true);
+            gimp_ui_init(_("ObjectRemovalPlugin"), true);
             return new Dialog(Variables);
         }
 
@@ -20,7 +27,7 @@ namespace ExemplarInpaintingPlugin
                                  "Rafal Lukaszewski",
                                  "(C) Rafal Lukaszewski",
                                  "2013",
-                                 _("Exemplar based "),
+                                 _("Inpainting"),
                                  "RGB*, GRAY*") { MenuPath = "<Image>/Filters/Object Removal" };
         }
 
@@ -37,6 +44,7 @@ namespace ExemplarInpaintingPlugin
         {
             var variables = new VariableSet
             {
+                new Variable<int>(VariablesConsts.ITERATIONS, _("Number of iterations"), 2)
             };
             GimpMain<ObjectRemovalPlugin>(args, variables);
         }
