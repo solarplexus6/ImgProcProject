@@ -12,8 +12,8 @@
 ##Installation
 
 - Windows  
-Just copy the content of binaries archive to GIMP plugin directory, usually:
-...\gimp\lib\gimp\2.0\plug-ins
+Just copy the content of binaries archive to GIMP plugin directory, usually:  
+*...\gimp\lib\gimp\2.0\plug-ins*
 
 ##Usage
 
@@ -23,3 +23,9 @@ In GIMP:
 - invoke the plugin
 - set the parameters or leave them at default
 - click "Ok" button
+
+## Used libraries
+
+This project uses C# bindings for:
+- GIMP API - [GIMP#] (http://gimp-sharp.sourceforge.net/index.html)
+- GTK API - [Gtk#] (http://www.mono-project.com/GtkSharp)
