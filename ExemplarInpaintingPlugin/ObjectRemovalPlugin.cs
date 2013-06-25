@@ -44,7 +44,8 @@ namespace ExemplarInpaintingPlugin
         {
             var variables = new VariableSet
             {
-                new Variable<int>(VariablesConsts.ITERATIONS, _("Number of iterations"), 2)
+                new Variable<int>(VariablesConsts.ITERATIONS, _("Number of iterations"), 50),
+                new Variable<int>(VariablesConsts.WINDOW_SIZE, _("Window size"), 9)
             };
             GimpMain<ObjectRemovalPlugin>(args, variables);
         }

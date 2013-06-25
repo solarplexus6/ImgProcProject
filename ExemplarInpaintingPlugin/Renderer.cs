@@ -21,12 +21,13 @@ namespace ExemplarInpaintingPlugin
     {
         readonly IPixelDistanceCalculator _pixelDistanceCalc = new RgbDistanceCalculator();
         private readonly int _iterations;
-
+        private readonly int _windowSize;
         #region Ctors
 
         public Renderer(VariableSet variables) : base(variables)
         {
             _iterations = GetValue<int>(VariablesConsts.ITERATIONS);
+            _windowSize = GetValue<int>(VariablesConsts.WINDOW_SIZE);
         }
 
         #endregion
@@ -34,8 +35,6 @@ namespace ExemplarInpaintingPlugin
 
         public void Render(Image image, Drawable drawable)
         {
-            const int WINDOW_SIZE = 9;
-
             if (image.Selection.Empty)
             {
                 return;
@@ -53,6 +52,9 @@ namespace ExemplarInpaintingPlugin
             var selectionBounds = temp.Selection.Bounds(out selectionNonEmpty);
             var selectionMask = new SelectionMask(temp.Selection);
 
+            //var progress = new Progress(_("Filling the region..."));
+            var initArea = selectionMask.Area;
+
             //init confidance term
             //TODO throw out rgniterator from here
             var pxConfidenceTerm = RegionHelper.FilledMatrix(image.Width, image.Height, 1.0);
@@ -68,8 +70,8 @@ namespace ExemplarInpaintingPlugin
                                              coord => selectionMask[coord.X, coord.Y])
                                 .ToList();
 
-                var borderConfidanceValues = NewConfidanceValue(selectionBorder, pxConfidenceTerm, WINDOW_SIZE);
-                var borderGradientValues = GradientValues(selectionBorder, layerPixels, selectionMask, WINDOW_SIZE).ToList();
+                var borderConfidanceValues = NewConfidanceValue(selectionBorder, pxConfidenceTerm, _windowSize);
+                var borderGradientValues = GradientValues(selectionBorder, layerPixels, selectionMask, _windowSize).ToList();
                 var borderNormals = NormalVectors.CalculateNormals(selectionBorder);
                 var borderDataTerms = borderGradientValues.Zip(borderNormals, ComputeDataTerm);
                 var borderPriorities = borderConfidanceValues.Zip(borderDataTerms, (c, d) => c * d)
@@ -77,7 +79,7 @@ namespace ExemplarInpaintingPlugin
 
                 var currentIndex = borderPriorities.MaxIndex();
                 var currentPoint = selectionBorder[currentIndex];
-                var currentRect = currentPoint.PointCenteredRectangle(WINDOW_SIZE);                
+                var currentRect = currentPoint.PointCenteredRectangle(_windowSize);                
                 var currentRegion = new PixelRgn(drawable, currentRect, true, true);
 
                 var minRgnRect = _pixelDistanceCalc.MinDistanceRegion(currentRect, borderGradientValues[currentIndex], layerPixels,
@@ -101,7 +103,7 @@ namespace ExemplarInpaintingPlugin
                 //update confidance values
                 var currentCoords =
                     RegionHelper.Grid(currentRect).Where(coord => selectionMask[coord.X, coord.Y]).ToArray();
-                var newConfidanceValues = NewConfidanceValue(currentCoords, pxConfidenceTerm, WINDOW_SIZE).ToArray();
+                var newConfidanceValues = NewConfidanceValue(currentCoords, pxConfidenceTerm, _windowSize).ToArray();
                 foreach (var point in
                     currentCoords.Zip(newConfidanceValues,
                                       (coordinate, confidance) =>
@@ -111,6 +113,7 @@ namespace ExemplarInpaintingPlugin
                 }
                 // exclude current region pixels from selection
                 selectionMask.SetAreaToZero(currentRect);
+                //progress.Update((initArea - selectionMask.Area)/(double) initArea);
 
                 iteration++;
                 if (iteration == _iterations)
